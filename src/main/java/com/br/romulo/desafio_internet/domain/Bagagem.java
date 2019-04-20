@@ -25,6 +25,9 @@ public class Bagagem implements Serializable{
 	private Long id;
 	private Double peso;
 	
+	@JoinColumn(name="TIPO_BAGAGEM")
+	private Double tipoBagagem;
+	
 	public Bagagem() {
 	}
 	
@@ -56,6 +59,23 @@ public class Bagagem implements Serializable{
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
+	
+	public List<Bilhete> getBilhetes() {
+		return bilhetes;
+	}
+
+	public void setBilhetes(List<Bilhete> bilhetes) {
+		this.bilhetes = bilhetes;
+	}
+
+	public TipoBagagemEnum getTipoBagagem() {
+		return TipoBagagemEnum.getTipoBagagem(tipoBagagem);
+	}
+
+	public void setTipoBagagem(TipoBagagemEnum tipoBagagem) {
+		this.tipoBagagem = tipoBagagem.getValor();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,11 +100,5 @@ public class Bagagem implements Serializable{
 		return true;
 	}
 
-	public List<Bilhete> getBilhetes() {
-		return bilhetes;
-	}
-
-	public void setBilhetes(List<Bilhete> bilhetes) {
-		this.bilhetes = bilhetes;
-	}
+	
 }

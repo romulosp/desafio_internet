@@ -14,6 +14,7 @@ import com.br.romulo.desafio_internet.domain.Executiva;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Primeira;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
+import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.BilheteRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
@@ -61,7 +62,7 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		
 		
 		Bagagem bagemEconomica1=  new  Bagagem(null, 8.00) ;
-		
+		bagemEconomica1.setTipoBagagem(TipoBagagemEnum.INTERNACIONAL);
 		
 		Horario horarioVooEconomica =
 				new Horario(
@@ -102,8 +103,9 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		
 		
 		Bagagem bagemPrimeira1=  new  Bagagem(null, 3.00) ;
+		bagemPrimeira1.setTipoBagagem(TipoBagagemEnum.MAO);
 		Bagagem bagemPrimeira2=  new  Bagagem(null, 4.00) ;
-		
+		bagemPrimeira2.setTipoBagagem(TipoBagagemEnum.MAO);
 		
 		
 		
@@ -144,8 +146,11 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		horarioChegadaExecutiva.set(Calendar.YEAR, 2019);
 		
 		Bagagem bagemExecutiva1=  new  Bagagem(null, 7.00) ;
+		bagemExecutiva1.setTipoBagagem(TipoBagagemEnum.NACIONAL);
 		Bagagem bagemExecutiva2=  new  Bagagem(null, 6.00) ;
+		bagemExecutiva2.setTipoBagagem(TipoBagagemEnum.NACIONAL);
 		Bagagem bagemExecutiva3=  new  Bagagem(null, 9.00) ;
+		bagemExecutiva3.setTipoBagagem(TipoBagagemEnum.NACIONAL);
 		
 		
 		
