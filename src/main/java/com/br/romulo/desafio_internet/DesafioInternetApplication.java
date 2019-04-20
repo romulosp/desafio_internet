@@ -13,6 +13,7 @@ import com.br.romulo.desafio_internet.domain.Economica;
 import com.br.romulo.desafio_internet.domain.Executiva;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Primeira;
+import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
@@ -21,6 +22,7 @@ import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
 import com.br.romulo.desafio_internet.repositories.ExecutivaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
 import com.br.romulo.desafio_internet.repositories.PrimeiraRepository;
+import com.br.romulo.desafio_internet.repositories.RotaRepository;
 
 @SpringBootApplication
 public class DesafioInternetApplication implements CommandLineRunner {
@@ -42,6 +44,10 @@ public class DesafioInternetApplication implements CommandLineRunner {
 	
 	@Autowired
 	private BagagemRepository bagagemRepository;
+	
+	@Autowired
+	private RotaRepository rotaRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioInternetApplication.class, args);
@@ -74,6 +80,10 @@ public class DesafioInternetApplication implements CommandLineRunner {
 						null, 
 						null
 				);
+		
+		Rota rotaVooEconomica = new Rota(null, "ROTA ECONOMICA", "DESCRICAO ROTA ECONOMICA");
+		rotaRepository.save(rotaVooEconomica);
+		horarioVooEconomica.setRota(rotaVooEconomica);
 		
 		horarioRepository.save(horarioVooEconomica);
 		
@@ -119,6 +129,11 @@ public class DesafioInternetApplication implements CommandLineRunner {
 						2, 
 						null
 				);
+		
+		Rota rotaVooPrimeira = new Rota(null, "ROTA Primeira", "DESCRICAO ROTA Primeira");
+		rotaRepository.save(rotaVooPrimeira);
+		horarioVooPrimeira.setRota(rotaVooPrimeira);
+		
 		horarioRepository.save(horarioVooPrimeira);
 		
 		Primeira primeira = new Primeira(
@@ -164,6 +179,10 @@ public class DesafioInternetApplication implements CommandLineRunner {
 						null, 
 						3
 				);
+		
+		Rota rotaVooExecutiva = new Rota(null, "ROTA Executiva", "DESCRICAO ROTA Executiva");
+		rotaRepository.save(rotaVooExecutiva);
+		horarioVooExecutiva.setRota(rotaVooExecutiva);
 		
 		horarioRepository.save(horarioVooExecutiva);
 		

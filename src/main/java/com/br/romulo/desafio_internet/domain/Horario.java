@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,6 +31,10 @@ public class Horario implements Serializable{
 	private Integer qtdEconomica;
 	private Integer qtdPrimeira;
 	private Integer qtdExecutiva;
+	
+	@ManyToOne
+	@JoinColumn(name="rota_id")
+	private Rota rota;
 	 
 	public Horario() {}
 	
@@ -89,6 +95,14 @@ public class Horario implements Serializable{
 	}
 	public void setQtdExecutiva(Integer qtdExecutiva) {
 		this.qtdExecutiva = qtdExecutiva;
+	}
+
+	public Rota getRota() {
+		return rota;
+	}
+
+	public void setRota(Rota rota) {
+		this.rota = rota;
 	}
 	@Override
 	public int hashCode() {
