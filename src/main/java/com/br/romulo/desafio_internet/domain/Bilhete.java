@@ -1,6 +1,7 @@
 package com.br.romulo.desafio_internet.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -36,7 +38,12 @@ public abstract class Bilhete implements Serializable {
 
 	@OneToOne
 	private Horario horario;
-
+	
+	
+	@ManyToMany(mappedBy="bilhetes")
+	private List<Bagagem> bagagens;
+	
+	
 	public Bilhete() {
 	}
 
@@ -106,7 +113,13 @@ public abstract class Bilhete implements Serializable {
 	public void setHorario(Horario horario) {
 		this.horario = horario;
 	}
+	public List<Bagagem> getBagagens() {
+		return bagagens;
+	}
 
+	public void setBagagens(List<Bagagem> bagagens) {
+		this.bagagens = bagagens;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -123,5 +136,7 @@ public abstract class Bilhete implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

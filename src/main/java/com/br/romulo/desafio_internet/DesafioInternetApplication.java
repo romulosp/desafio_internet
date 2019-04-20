@@ -8,11 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.Economica;
 import com.br.romulo.desafio_internet.domain.Executiva;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Primeira;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
+import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.BilheteRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
 import com.br.romulo.desafio_internet.repositories.ExecutivaRepository;
@@ -37,6 +39,9 @@ public class DesafioInternetApplication implements CommandLineRunner {
 	@Autowired
 	private PrimeiraRepository primeiraRepository;
 	
+	@Autowired
+	private BagagemRepository bagagemRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioInternetApplication.class, args);
 	}
@@ -53,6 +58,10 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		horarioPartidaEconomica.set(Calendar.DAY_OF_YEAR, 21);
 		horarioPartidaEconomica.set(Calendar.MONTH, 4);
 		horarioPartidaEconomica.set(Calendar.YEAR, 2019);
+		
+		
+		Bagagem bagemEconomica1=  new  Bagagem(null, 8.00) ;
+		
 		
 		Horario horarioVooEconomica =
 				new Horario(
@@ -74,8 +83,11 @@ public class DesafioInternetApplication implements CommandLineRunner {
 				SituacaoBilheteEnum.DISPONIVEL, 
 				horarioVooEconomica
 				);
-		
+		bagemEconomica1.setBilhetes(Arrays.asList(economica));
+		bagagemRepository.save(bagemEconomica1);
 		economicaRepository.save(economica);
+		
+		economica.setBagagens(Arrays.asList(bagemEconomica1));
 				
 		
 		Calendar horarioPartidaPrimeira = Calendar.getInstance();
@@ -87,6 +99,13 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
 		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
 		horarioPartidaPrimeira.set(Calendar.YEAR, 2019);
+		
+		
+		Bagagem bagemPrimeira1=  new  Bagagem(null, 3.00) ;
+		Bagagem bagemPrimeira2=  new  Bagagem(null, 4.00) ;
+		
+		
+		
 		
 		Horario horarioVooPrimeira =
 				new Horario(
@@ -108,6 +127,10 @@ public class DesafioInternetApplication implements CommandLineRunner {
 				horarioVooPrimeira
 			);
 		
+		
+		primeira.setBagagens(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
+		bagemPrimeira1.setBilhetes(Arrays.asList(primeira));
+		bagagemRepository.saveAll(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
 		primeiraRepository.save(primeira);
 		
 		Calendar horarioPartidaExecutiva = Calendar.getInstance();
@@ -119,6 +142,12 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		horarioChegadaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
 		horarioChegadaExecutiva.set(Calendar.MONTH, 8);
 		horarioChegadaExecutiva.set(Calendar.YEAR, 2019);
+		
+		Bagagem bagemExecutiva1=  new  Bagagem(null, 7.00) ;
+		Bagagem bagemExecutiva2=  new  Bagagem(null, 6.00) ;
+		Bagagem bagemExecutiva3=  new  Bagagem(null, 9.00) ;
+		
+		
 		
 		Horario horarioVooExecutiva = 
 				new Horario(
@@ -140,7 +169,13 @@ public class DesafioInternetApplication implements CommandLineRunner {
 				SituacaoBilheteEnum.RESERVADO,
 				horarioVooExecutiva);
 		
+		executiva.setBagagens(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
+		
+		bagemExecutiva3.setBilhetes(Arrays.asList(executiva));
+		bagagemRepository.saveAll(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
 		executivaRepository.save(executiva);
+		
+	 
 		
 		bilheteRepository.saveAll(Arrays.asList(economica,primeira,executiva));
 		
