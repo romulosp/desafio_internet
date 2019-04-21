@@ -1,20 +1,14 @@
 package com.br.romulo.desafio_internet.domain;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-public class Horario implements Serializable{
+public class Aviao implements Serializable {
 
 	/**
 	 * 
@@ -24,33 +18,25 @@ public class Horario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String codigo;
-	@Temporal(TemporalType.DATE)
-	private Calendar partidade;
-	@Temporal(TemporalType.DATE)
-	private Calendar chegada;
+	private Double carga;
+	
 	private Integer qtdEconomica;
 	private Integer qtdPrimeira;
 	private Integer qtdExecutiva;
+ 
 	
-	@OneToOne
-	private Aviao aviao;
 	
-	@ManyToOne
-	@JoinColumn(name="rota_id")
-	private Rota rota;
-	 
-	public Horario() {}
+	public Aviao() {}
 	
 	
 	
-	public Horario(Long id, String codigo, Calendar partidade, Calendar chegada, Integer qtdEconomica,
-			Integer qtdPrimeira, Integer qtdExecutiva) {
+	public Aviao(Long id, String codigo, Double carga, Integer qtdEconomica, Integer qtdPrimeira, Integer qtdExecutiva ) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
-		this.partidade = partidade;
-		this.chegada = chegada;
+		this.carga = carga;
 		this.qtdEconomica = qtdEconomica;
 		this.qtdPrimeira = qtdPrimeira;
 		this.qtdExecutiva = qtdExecutiva;
@@ -70,17 +56,11 @@ public class Horario implements Serializable{
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	public Calendar getPartidade() {
-		return partidade;
+	public Double getCarga() {
+		return carga;
 	}
-	public void setPartidade(Calendar partidade) {
-		this.partidade = partidade;
-	}
-	public Calendar getChegada() {
-		return chegada;
-	}
-	public void setChegada(Calendar chegada) {
-		this.chegada = chegada;
+	public void setCarga(Double carga) {
+		this.carga = carga;
 	}
 	public Integer getQtdEconomica() {
 		return qtdEconomica;
@@ -101,22 +81,6 @@ public class Horario implements Serializable{
 		this.qtdExecutiva = qtdExecutiva;
 	}
 
-	public Rota getRota() {
-		return rota;
-	}
-
-	public void setRota(Rota rota) {
-		this.rota = rota;
-	}
-
-	public Aviao getAviao() {
-		return aviao;
-	}
-
-	public void setAviao(Aviao aviao) {
-		this.aviao = aviao;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -132,7 +96,7 @@ public class Horario implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Horario other = (Horario) obj;
+		Aviao other = (Aviao) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -140,4 +104,5 @@ public class Horario implements Serializable{
 			return false;
 		return true;
 	}
+
 }

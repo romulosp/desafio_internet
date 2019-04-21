@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.romulo.desafio_internet.domain.Aeroporto;
+import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Primeira;
@@ -15,6 +16,7 @@ import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
+import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
 import com.br.romulo.desafio_internet.repositories.PrimeiraRepository;
@@ -36,6 +38,9 @@ public class GeraMassaTestePrimeira {
 	
 	@Autowired
 	private PrimeiraRepository primeiraRepository;
+	
+	@Autowired
+	private AviaoRepository aviaoRepository;
 	
 	public Primeira geraMassaTestePrimeira() {
 		Calendar horarioPartidaPrimeira = Calendar.getInstance();
@@ -81,6 +86,13 @@ public class GeraMassaTestePrimeira {
 		rotaVooPrimeira.setAeroportos(Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2));
 		rotaRepository.save(rotaVooPrimeira);
 		horarioVooPrimeira.setRota(rotaVooPrimeira);
+		
+		Aviao aviaoPrimeira = new Aviao(null, "Avião Primeira", 50000.00, null, 60, null);
+		
+		horarioVooPrimeira.setAviao(aviaoPrimeira);
+		aviaoRepository.save(aviaoPrimeira);
+		
+		horarioVooPrimeira.setAviao(aviaoPrimeira);
 		
 		horarioRepository.save(horarioVooPrimeira);
 		

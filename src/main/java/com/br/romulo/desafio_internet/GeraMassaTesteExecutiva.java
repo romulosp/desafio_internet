@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.romulo.desafio_internet.domain.Aeroporto;
+import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.Executiva;
 import com.br.romulo.desafio_internet.domain.Horario;
@@ -15,6 +16,7 @@ import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
+import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.ExecutivaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
@@ -36,6 +38,9 @@ public class GeraMassaTesteExecutiva {
 	
 	@Autowired
 	private ExecutivaRepository executivaRepository;
+	
+	@Autowired
+	private AviaoRepository aviaoRepository;
 	 
 	public Executiva geraMassaTesteExecutiva() {
 		Calendar horarioPartidaExecutiva = Calendar.getInstance();
@@ -86,6 +91,13 @@ public class GeraMassaTesteExecutiva {
 		rotaVooExecutiva.setAeroportos(Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3));
 		rotaRepository.save(rotaVooExecutiva);
 		horarioVooExecutiva.setRota(rotaVooExecutiva);
+		
+		Aviao aviaoExecutiva = new Aviao(null, "Avião Executiva", 20000.00, null, null, 20);
+		
+		horarioVooExecutiva.setAviao(aviaoExecutiva);
+		aviaoRepository.save(aviaoExecutiva);
+		
+		horarioVooExecutiva.setAviao(aviaoExecutiva);
 		
 		horarioRepository.save(horarioVooExecutiva);
 		

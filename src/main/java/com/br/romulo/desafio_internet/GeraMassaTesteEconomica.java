@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.romulo.desafio_internet.domain.Aeroporto;
+import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.Economica;
 import com.br.romulo.desafio_internet.domain.Horario;
@@ -15,6 +16,7 @@ import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
+import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
@@ -38,6 +40,9 @@ public class GeraMassaTesteEconomica {
 	
 	@Autowired
 	private EconomicaRepository economicaRepository;
+	
+	@Autowired
+	private AviaoRepository aviaoRepository;
 	
 	
 	public Economica geraMassaTesteEconomica() {
@@ -88,7 +93,16 @@ public class GeraMassaTesteEconomica {
 		rotaRepository.save(rotaVooEconomica);
 		horarioVooEconomica.setRota(rotaVooEconomica);
 		
+		Aviao aviaoEconomico = new Aviao(null, "Avião economico", 10000.00, 10, null, null);
+		
+		horarioVooEconomica.setAviao(aviaoEconomico);
+		aviaoRepository.save(aviaoEconomico);
+		
+		horarioVooEconomica.setAviao(aviaoEconomico);
+		
 		horarioRepository.save(horarioVooEconomica);
+		
+		
 		
 		Economica economica =  new Economica(
 				null,
