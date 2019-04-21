@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
-public class Rota implements Serializable{
+public class Aeroporto implements Serializable {
 
 	/**
 	 * 
@@ -24,22 +25,25 @@ public class Rota implements Serializable{
 	private Long id;
 	
 	private String nome;
-	private String descricao;
+	private String codigo;
 	
-	@OneToMany(mappedBy="rota",cascade = CascadeType.ALL)
-	private List<Horario> horarios;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+				name = "AEROPORTO_ROTAS",
+				joinColumns = @JoinColumn(name="id_aeroporto"),
+				inverseJoinColumns = @JoinColumn(name="id_rotas")
+			)
+	private List<Rota> rotas;
 	
-	@ManyToMany(mappedBy="rotas")
-	private List<Aeroporto> aeroportos;
+	public Aeroporto() {}
 	
-	public Rota() {}
 	
 
-	public Rota(Long id, String nome, String descricao) {
+	public Aeroporto(Long id, String nome, String codigo) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.descricao = descricao;
+		this.codigo = codigo;
 	}
 
 
@@ -60,29 +64,22 @@ public class Rota implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
-	public List<Horario> getHorarios() {
-		return horarios;
+	public List<Rota> getRotas() {
+		return rotas;
 	}
 
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
-	}
-	public List<Aeroporto> getAeroportos() {
-		return aeroportos;
+	public void setRotas(List<Rota> rotas) {
+		this.rotas = rotas;
 	}
 
-
-	public void setAeroportos(List<Aeroporto> aeroportos) {
-		this.aeroportos = aeroportos;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,7 +96,7 @@ public class Rota implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Rota other = (Rota) obj;
+		Aeroporto other = (Aeroporto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -2,12 +2,14 @@ package com.br.romulo.desafio_internet;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.br.romulo.desafio_internet.domain.Aeroporto;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.Economica;
 import com.br.romulo.desafio_internet.domain.Executiva;
@@ -16,6 +18,7 @@ import com.br.romulo.desafio_internet.domain.Primeira;
 import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
+import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
 import com.br.romulo.desafio_internet.repositories.BilheteRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
@@ -47,6 +50,9 @@ public class DesafioInternetApplication implements CommandLineRunner {
 	
 	@Autowired
 	private RotaRepository rotaRepository;
+	
+	@Autowired
+	private AeroportoRepository aeroportoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -81,9 +87,30 @@ public class DesafioInternetApplication implements CommandLineRunner {
 						null
 				);
 		
+		
 		Rota rotaVooEconomica = new Rota(null, "ROTA ECONOMICA", "DESCRICAO ROTA ECONOMICA");
+		Aeroporto aeroportoEconomica1 = new Aeroporto(null, "aeroporto 1 Economica ", "A1s");
+		Aeroporto aeroportoEconomica2 = new Aeroporto(null, "aeroporto 2 Economica", "ASQ");
+		Aeroporto aeroportoEconomica3 = new Aeroporto(null, "aeroporto 3 Economica", "DSW");
+		Aeroporto aeroportoEconomica4 = new Aeroporto(null, "aeroporto 4 Economica", "GDS");
+		
+		
+		aeroportoEconomica1.setRotas(Arrays.asList(rotaVooEconomica));
+		aeroportoEconomica2.setRotas(Arrays.asList(rotaVooEconomica));
+		aeroportoEconomica3.setRotas(Arrays.asList(rotaVooEconomica));
+		aeroportoEconomica4.setRotas(Arrays.asList(rotaVooEconomica));
+		
+		List<Aeroporto> listAeroportosEconomica = Arrays.asList(aeroportoEconomica1,aeroportoEconomica2,aeroportoEconomica3,aeroportoEconomica4);
+		
+		rotaVooEconomica.setAeroportos(listAeroportosEconomica);
+		
+		aeroportoRepository.saveAll(listAeroportosEconomica);
+		
 		rotaRepository.save(rotaVooEconomica);
 		horarioVooEconomica.setRota(rotaVooEconomica);
+		
+		
+	
 		
 		horarioRepository.save(horarioVooEconomica);
 		
@@ -131,6 +158,17 @@ public class DesafioInternetApplication implements CommandLineRunner {
 				);
 		
 		Rota rotaVooPrimeira = new Rota(null, "ROTA Primeira", "DESCRICAO ROTA Primeira");
+		Aeroporto aeroportoPrimeira1 = new Aeroporto(null, "aeroporto 1 Primeira ", "A1s");
+		Aeroporto aeroportoPrimeira2 = new Aeroporto(null, "aeroporto 2 Primeira", "ASQ");
+		 
+		
+		aeroportoPrimeira1.setRotas(Arrays.asList(rotaVooPrimeira));
+		aeroportoPrimeira2.setRotas(Arrays.asList(rotaVooPrimeira));
+		List<Aeroporto> listAeroportosPrimeira = Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2);
+		rotaVooPrimeira.setAeroportos(listAeroportosEconomica);
+		aeroportoRepository.saveAll(listAeroportosPrimeira);
+		
+		rotaVooPrimeira.setAeroportos(Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2));
 		rotaRepository.save(rotaVooPrimeira);
 		horarioVooPrimeira.setRota(rotaVooPrimeira);
 		
@@ -181,6 +219,21 @@ public class DesafioInternetApplication implements CommandLineRunner {
 				);
 		
 		Rota rotaVooExecutiva = new Rota(null, "ROTA Executiva", "DESCRICAO ROTA Executiva");
+		
+		Aeroporto aeroportoExecutiva1 = new Aeroporto(null, "aeroporto 1 Executiva ", "A1s");
+		Aeroporto aeroportoExecutiva2 = new Aeroporto(null, "aeroporto 2 Executiva", "ASQ");
+		Aeroporto aeroportoExecutiva3 = new Aeroporto(null, "aeroporto 3 Executiva", "DSW");
+		aeroportoExecutiva1.setRotas(Arrays.asList(rotaVooExecutiva));
+		aeroportoExecutiva2.setRotas(Arrays.asList(rotaVooExecutiva));
+		aeroportoExecutiva3.setRotas(Arrays.asList(rotaVooExecutiva));
+		
+		List<Aeroporto> listAeroportosExecutiva = Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3);
+		
+		rotaVooExecutiva.setAeroportos(listAeroportosEconomica);
+		aeroportoRepository.saveAll(listAeroportosExecutiva);
+		
+		
+		rotaVooExecutiva.setAeroportos(Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3));
 		rotaRepository.save(rotaVooExecutiva);
 		horarioVooExecutiva.setRota(rotaVooExecutiva);
 		
