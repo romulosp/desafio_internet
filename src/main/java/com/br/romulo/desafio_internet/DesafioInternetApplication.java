@@ -17,6 +17,7 @@ public class DesafioInternetApplication implements CommandLineRunner {
 	@Autowired
 	private GeraMassaTesteExecutiva geraMassaTesteExecutiva;
 	
+	@Autowired GeraMassaTesteFuncionario geraMassaTesteFuncionario;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DesafioInternetApplication.class, args);
@@ -34,7 +35,7 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		 geraMassaTesteEconomica.geraMassaTesteEconomica();
 		 geraMassaTestePrimeira.geraMassaTestePrimeira();
 		 geraMassaTesteExecutiva.geraMassaTesteExecutiva();
-		
+		 geraMassaTesteFuncionario.geraMassaTesteFuncionario();
 	}
 
 }

@@ -32,7 +32,6 @@ public class Papel implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.ciaAerea = ciaAerea;
 	}
 
 

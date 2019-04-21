@@ -58,7 +58,13 @@ public class CiaAerea implements Serializable {
 		this.nome = nome;
 	}
 
-	 
+	public List<Aviao> getAvioes() {
+		return avioes;
+	}
+
+	public void setAvioes(List<Aviao> avioes) {
+		this.avioes = avioes;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -84,14 +90,4 @@ public class CiaAerea implements Serializable {
 			return false;
 		return true;
 	}
-
-	public List<Aviao> getAvioes() {
-		return avioes;
-	}
-
-	public void setAvioes(List<Aviao> avioes) {
-		this.avioes = avioes;
-	}
-
-	
 }
