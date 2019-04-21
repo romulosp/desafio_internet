@@ -3,16 +3,14 @@ package com.br.romulo.desafio_internet.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class CiaAerea implements Serializable {
+public class Papel implements Serializable{
 
 	/**
 	 * 
@@ -22,25 +20,24 @@ public class CiaAerea implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private String nome;
+	private String descricao;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Aviao> avioes; 
-	
-	@ManyToOne
-	private Papel papel;
-	
-	public CiaAerea() {
-		
+	public Papel() {
 	}
-
-	public CiaAerea(Long id, String nome ) {
+	
+	
+	public Papel(Long id, String nome, String descricao ) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		 
+		this.descricao = descricao;
+		this.ciaAerea = ciaAerea;
 	}
+
+
+	@OneToMany
+	private List<CiaAerea> ciaAerea;
 
 	public Long getId() {
 		return id;
@@ -58,8 +55,22 @@ public class CiaAerea implements Serializable {
 		this.nome = nome;
 	}
 
-	 
-	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<CiaAerea> getCiaAerea() {
+		return ciaAerea;
+	}
+
+	public void setCiaAerea(List<CiaAerea> ciaAerea) {
+		this.ciaAerea = ciaAerea;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,7 +87,7 @@ public class CiaAerea implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CiaAerea other = (CiaAerea) obj;
+		Papel other = (Papel) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -84,14 +95,4 @@ public class CiaAerea implements Serializable {
 			return false;
 		return true;
 	}
-
-	public List<Aviao> getAvioes() {
-		return avioes;
-	}
-
-	public void setAvioes(List<Aviao> avioes) {
-		this.avioes = avioes;
-	}
-
-	
 }
