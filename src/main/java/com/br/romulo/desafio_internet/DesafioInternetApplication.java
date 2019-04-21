@@ -61,7 +61,152 @@ public class DesafioInternetApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		/**
+		 * 
+		 * Teste modelagem conceitual 
+		 * 
+		 * Teste de conceito 
+		 * [ 
+		 * 
+		 * */
+		Economica economica = gerarMassaTesteEconomica();
+		Primeira primeira = geraMassaTestePrimeira();
+		Executiva executiva = geraMassaTesteExecutiva();
+		bilheteRepository.saveAll(Arrays.asList(economica,primeira,executiva));
 		
+	}
+
+	private Executiva geraMassaTesteExecutiva() {
+		Calendar horarioPartidaExecutiva = Calendar.getInstance();
+		horarioPartidaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
+		horarioPartidaExecutiva.set(Calendar.MONTH, 8);
+		horarioPartidaExecutiva.set(Calendar.YEAR, 2019);
+		
+		Calendar horarioChegadaExecutiva = Calendar.getInstance();
+		horarioChegadaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
+		horarioChegadaExecutiva.set(Calendar.MONTH, 8);
+		horarioChegadaExecutiva.set(Calendar.YEAR, 2019);
+		
+		Bagagem bagemExecutiva1=  new  Bagagem(null, 7.00) ;
+		bagemExecutiva1.setTipoBagagem(TipoBagagemEnum.NACIONAL);
+		Bagagem bagemExecutiva2=  new  Bagagem(null, 6.00) ;
+		bagemExecutiva2.setTipoBagagem(TipoBagagemEnum.NACIONAL);
+		Bagagem bagemExecutiva3=  new  Bagagem(null, 9.00) ;
+		bagemExecutiva3.setTipoBagagem(TipoBagagemEnum.NACIONAL);
+		
+		
+		
+		Horario horarioVooExecutiva = 
+				new Horario(
+						null, 
+						"#weS",
+						horarioPartidaExecutiva, 
+						horarioChegadaExecutiva, 
+						null,
+						null, 
+						3
+				);
+		
+		Rota rotaVooExecutiva = new Rota(null, "ROTA Executiva", "DESCRICAO ROTA Executiva");
+		
+		Aeroporto aeroportoExecutiva1 = new Aeroporto(null, "aeroporto 1 Executiva ", "A1s");
+		Aeroporto aeroportoExecutiva2 = new Aeroporto(null, "aeroporto 2 Executiva", "ASQ");
+		Aeroporto aeroportoExecutiva3 = new Aeroporto(null, "aeroporto 3 Executiva", "DSW");
+		aeroportoExecutiva1.setRotas(Arrays.asList(rotaVooExecutiva));
+		aeroportoExecutiva2.setRotas(Arrays.asList(rotaVooExecutiva));
+		aeroportoExecutiva3.setRotas(Arrays.asList(rotaVooExecutiva));
+		
+		List<Aeroporto> listAeroportosExecutiva = Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3);
+		
+		rotaVooExecutiva.setAeroportos(listAeroportosExecutiva);
+		aeroportoRepository.saveAll(listAeroportosExecutiva);
+		
+		
+		rotaVooExecutiva.setAeroportos(Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3));
+		rotaRepository.save(rotaVooExecutiva);
+		horarioVooExecutiva.setRota(rotaVooExecutiva);
+		
+		horarioRepository.save(horarioVooExecutiva);
+		
+		Executiva executiva = new Executiva(
+				null,
+				2111,
+				"AC",
+				SituacaoBilheteEnum.RESERVADO,
+				horarioVooExecutiva);
+		
+		executiva.setBagagens(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
+		
+		bagemExecutiva3.setBilhetes(Arrays.asList(executiva));
+		bagagemRepository.saveAll(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
+		executivaRepository.save(executiva);
+		return executiva;
+	}
+
+	private Primeira geraMassaTestePrimeira() {
+		Calendar horarioPartidaPrimeira = Calendar.getInstance();
+		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
+		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
+		horarioPartidaPrimeira.set(Calendar.YEAR, 2019);
+		
+		Calendar horarioChegadaPrimeira = Calendar.getInstance();
+		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
+		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
+		horarioPartidaPrimeira.set(Calendar.YEAR, 2019);
+		
+		
+		Bagagem bagemPrimeira1=  new  Bagagem(null, 3.00) ;
+		bagemPrimeira1.setTipoBagagem(TipoBagagemEnum.MAO);
+		Bagagem bagemPrimeira2=  new  Bagagem(null, 4.00) ;
+		bagemPrimeira2.setTipoBagagem(TipoBagagemEnum.MAO);
+		
+		
+		
+		Horario horarioVooPrimeira =
+				new Horario(
+						null, 
+						"#CSD",
+						horarioPartidaPrimeira, 
+						horarioChegadaPrimeira, 
+						null,
+						2, 
+						null
+				);
+		
+		Rota rotaVooPrimeira = new Rota(null, "ROTA Primeira", "DESCRICAO ROTA Primeira");
+		Aeroporto aeroportoPrimeira1 = new Aeroporto(null, "aeroporto 1 Primeira ", "A1s");
+		Aeroporto aeroportoPrimeira2 = new Aeroporto(null, "aeroporto 2 Primeira", "ASQ");
+		 
+		
+		aeroportoPrimeira1.setRotas(Arrays.asList(rotaVooPrimeira));
+		aeroportoPrimeira2.setRotas(Arrays.asList(rotaVooPrimeira));
+		List<Aeroporto> listAeroportosPrimeira = Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2);
+		rotaVooPrimeira.setAeroportos(listAeroportosPrimeira);
+		aeroportoRepository.saveAll(listAeroportosPrimeira);
+		
+		rotaVooPrimeira.setAeroportos(Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2));
+		rotaRepository.save(rotaVooPrimeira);
+		horarioVooPrimeira.setRota(rotaVooPrimeira);
+		
+		horarioRepository.save(horarioVooPrimeira);
+		
+		Primeira primeira = new Primeira(
+				null,
+				6967, 
+				"2c",
+				SituacaoBilheteEnum.VENDIDO,
+				horarioVooPrimeira
+			);
+		
+		
+		primeira.setBagagens(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
+		bagemPrimeira1.setBilhetes(Arrays.asList(primeira));
+		bagagemRepository.saveAll(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
+		primeiraRepository.save(primeira);
+		return primeira;
+	}
+
+	private Economica gerarMassaTesteEconomica() {
 		Calendar horarioPartidaEconomica = Calendar.getInstance();
 		horarioPartidaEconomica.set(Calendar.DAY_OF_YEAR, 20);
 		horarioPartidaEconomica.set(Calendar.MONTH, 4);
@@ -109,9 +254,6 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		rotaRepository.save(rotaVooEconomica);
 		horarioVooEconomica.setRota(rotaVooEconomica);
 		
-		
-	
-		
 		horarioRepository.save(horarioVooEconomica);
 		
 		Economica economica =  new Economica(
@@ -124,138 +266,8 @@ public class DesafioInternetApplication implements CommandLineRunner {
 		bagemEconomica1.setBilhetes(Arrays.asList(economica));
 		bagagemRepository.save(bagemEconomica1);
 		economicaRepository.save(economica);
-		
 		economica.setBagagens(Arrays.asList(bagemEconomica1));
-				
-		
-		Calendar horarioPartidaPrimeira = Calendar.getInstance();
-		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
-		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
-		horarioPartidaPrimeira.set(Calendar.YEAR, 2019);
-		
-		Calendar horarioChegadaPrimeira = Calendar.getInstance();
-		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
-		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
-		horarioPartidaPrimeira.set(Calendar.YEAR, 2019);
-		
-		
-		Bagagem bagemPrimeira1=  new  Bagagem(null, 3.00) ;
-		bagemPrimeira1.setTipoBagagem(TipoBagagemEnum.MAO);
-		Bagagem bagemPrimeira2=  new  Bagagem(null, 4.00) ;
-		bagemPrimeira2.setTipoBagagem(TipoBagagemEnum.MAO);
-		
-		
-		
-		Horario horarioVooPrimeira =
-				new Horario(
-						null, 
-						"#CSD",
-						horarioPartidaPrimeira, 
-						horarioChegadaPrimeira, 
-						null,
-						2, 
-						null
-				);
-		
-		Rota rotaVooPrimeira = new Rota(null, "ROTA Primeira", "DESCRICAO ROTA Primeira");
-		Aeroporto aeroportoPrimeira1 = new Aeroporto(null, "aeroporto 1 Primeira ", "A1s");
-		Aeroporto aeroportoPrimeira2 = new Aeroporto(null, "aeroporto 2 Primeira", "ASQ");
-		 
-		
-		aeroportoPrimeira1.setRotas(Arrays.asList(rotaVooPrimeira));
-		aeroportoPrimeira2.setRotas(Arrays.asList(rotaVooPrimeira));
-		List<Aeroporto> listAeroportosPrimeira = Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2);
-		rotaVooPrimeira.setAeroportos(listAeroportosEconomica);
-		aeroportoRepository.saveAll(listAeroportosPrimeira);
-		
-		rotaVooPrimeira.setAeroportos(Arrays.asList(aeroportoPrimeira1,aeroportoPrimeira2));
-		rotaRepository.save(rotaVooPrimeira);
-		horarioVooPrimeira.setRota(rotaVooPrimeira);
-		
-		horarioRepository.save(horarioVooPrimeira);
-		
-		Primeira primeira = new Primeira(
-				null,
-				6967, 
-				"2c",
-				SituacaoBilheteEnum.VENDIDO,
-				horarioVooPrimeira
-			);
-		
-		
-		primeira.setBagagens(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
-		bagemPrimeira1.setBilhetes(Arrays.asList(primeira));
-		bagagemRepository.saveAll(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
-		primeiraRepository.save(primeira);
-		
-		Calendar horarioPartidaExecutiva = Calendar.getInstance();
-		horarioPartidaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
-		horarioPartidaExecutiva.set(Calendar.MONTH, 8);
-		horarioPartidaExecutiva.set(Calendar.YEAR, 2019);
-		
-		Calendar horarioChegadaExecutiva = Calendar.getInstance();
-		horarioChegadaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
-		horarioChegadaExecutiva.set(Calendar.MONTH, 8);
-		horarioChegadaExecutiva.set(Calendar.YEAR, 2019);
-		
-		Bagagem bagemExecutiva1=  new  Bagagem(null, 7.00) ;
-		bagemExecutiva1.setTipoBagagem(TipoBagagemEnum.NACIONAL);
-		Bagagem bagemExecutiva2=  new  Bagagem(null, 6.00) ;
-		bagemExecutiva2.setTipoBagagem(TipoBagagemEnum.NACIONAL);
-		Bagagem bagemExecutiva3=  new  Bagagem(null, 9.00) ;
-		bagemExecutiva3.setTipoBagagem(TipoBagagemEnum.NACIONAL);
-		
-		
-		
-		Horario horarioVooExecutiva = 
-				new Horario(
-						null, 
-						"#weS",
-						horarioPartidaExecutiva, 
-						horarioChegadaExecutiva, 
-						null,
-						null, 
-						3
-				);
-		
-		Rota rotaVooExecutiva = new Rota(null, "ROTA Executiva", "DESCRICAO ROTA Executiva");
-		
-		Aeroporto aeroportoExecutiva1 = new Aeroporto(null, "aeroporto 1 Executiva ", "A1s");
-		Aeroporto aeroportoExecutiva2 = new Aeroporto(null, "aeroporto 2 Executiva", "ASQ");
-		Aeroporto aeroportoExecutiva3 = new Aeroporto(null, "aeroporto 3 Executiva", "DSW");
-		aeroportoExecutiva1.setRotas(Arrays.asList(rotaVooExecutiva));
-		aeroportoExecutiva2.setRotas(Arrays.asList(rotaVooExecutiva));
-		aeroportoExecutiva3.setRotas(Arrays.asList(rotaVooExecutiva));
-		
-		List<Aeroporto> listAeroportosExecutiva = Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3);
-		
-		rotaVooExecutiva.setAeroportos(listAeroportosEconomica);
-		aeroportoRepository.saveAll(listAeroportosExecutiva);
-		
-		
-		rotaVooExecutiva.setAeroportos(Arrays.asList(aeroportoExecutiva1,aeroportoExecutiva2,aeroportoExecutiva3));
-		rotaRepository.save(rotaVooExecutiva);
-		horarioVooExecutiva.setRota(rotaVooExecutiva);
-		
-		horarioRepository.save(horarioVooExecutiva);
-		
-		Executiva executiva = new Executiva(
-				null,
-				2111,
-				"AC",
-				SituacaoBilheteEnum.RESERVADO,
-				horarioVooExecutiva);
-		
-		executiva.setBagagens(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
-		
-		bagemExecutiva3.setBilhetes(Arrays.asList(executiva));
-		bagagemRepository.saveAll(Arrays.asList(bagemExecutiva1,bagemExecutiva2,bagemExecutiva3));
-		executivaRepository.save(executiva);
-		
-	 
-		
-		bilheteRepository.saveAll(Arrays.asList(economica,primeira,executiva));
-		
+		return economica;
 	}
 
 }
