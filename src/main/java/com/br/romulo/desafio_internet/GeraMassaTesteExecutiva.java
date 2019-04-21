@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.br.romulo.desafio_internet.domain.Aeroporto;
 import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
+import com.br.romulo.desafio_internet.domain.CiaAerea;
 import com.br.romulo.desafio_internet.domain.Executiva;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Rota;
@@ -18,6 +19,7 @@ import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
+import com.br.romulo.desafio_internet.repositories.CiaAereaRepository;
 import com.br.romulo.desafio_internet.repositories.ExecutivaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
 import com.br.romulo.desafio_internet.repositories.RotaRepository;
@@ -42,7 +44,13 @@ public class GeraMassaTesteExecutiva {
 	@Autowired
 	private AviaoRepository aviaoRepository;
 	 
+	@Autowired
+	private CiaAereaRepository ciaAereaRepository;
+	
 	public Executiva geraMassaTesteExecutiva() {
+		
+		CiaAerea tam = new CiaAerea(null, "TAM");
+		
 		Calendar horarioPartidaExecutiva = Calendar.getInstance();
 		horarioPartidaExecutiva.set(Calendar.DAY_OF_YEAR, 15);
 		horarioPartidaExecutiva.set(Calendar.MONTH, 8);
@@ -75,6 +83,8 @@ public class GeraMassaTesteExecutiva {
 		
 		Rota rotaVooExecutiva = new Rota(null, "ROTA Executiva", "DESCRICAO ROTA Executiva");
 		
+		rotaVooExecutiva.setCiaAerea(tam);
+		
 		Aeroporto aeroportoExecutiva1 = new Aeroporto(null, "aeroporto 1 Executiva ", "A1s");
 		Aeroporto aeroportoExecutiva2 = new Aeroporto(null, "aeroporto 2 Executiva", "ASQ");
 		Aeroporto aeroportoExecutiva3 = new Aeroporto(null, "aeroporto 3 Executiva", "DSW");
@@ -98,6 +108,9 @@ public class GeraMassaTesteExecutiva {
 		aviaoRepository.save(aviaoExecutiva);
 		
 		horarioVooExecutiva.setAviao(aviaoExecutiva);
+		
+		tam.setAvioes(Arrays.asList(aviaoExecutiva));
+		ciaAereaRepository.save(tam);
 		
 		horarioRepository.save(horarioVooExecutiva);
 		

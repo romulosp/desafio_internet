@@ -8,45 +8,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Rota implements Serializable{
+public class CiaAerea implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;
-	private String descricao;
 	
-	@OneToMany(mappedBy="rota",cascade = CascadeType.ALL)
-	private List<Horario> horarios;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Aviao> avioes; 
 	
-	@ManyToMany(mappedBy="rotas")
-	private List<Aeroporto> aeroportos;
-	
-	@OneToOne(cascade =CascadeType.ALL)
-	private CiaAerea ciaAerea;
-	
-	public Rota() {}
-	
+	public CiaAerea() {
+		
+	}
 
-	public Rota(Long id, String nome, String descricao) {
+	public CiaAerea(Long id, String nome ) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.descricao = descricao;
+		 
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -64,37 +54,7 @@ public class Rota implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Horario> getHorarios() {
-		return horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
-	}
-	public List<Aeroporto> getAeroportos() {
-		return aeroportos;
-	}
-
-
-	public void setAeroportos(List<Aeroporto> aeroportos) {
-		this.aeroportos = aeroportos;
-	}
-
-	public CiaAerea getCiaAerea() {
-		return ciaAerea;
-	}
-
-	public void setCiaAerea(CiaAerea ciaAerea) {
-		this.ciaAerea = ciaAerea;
-	}
+	 
 	
 	@Override
 	public int hashCode() {
@@ -112,7 +72,7 @@ public class Rota implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Rota other = (Rota) obj;
+		CiaAerea other = (CiaAerea) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -121,4 +81,13 @@ public class Rota implements Serializable{
 		return true;
 	}
 
+	public List<Aviao> getAvioes() {
+		return avioes;
+	}
+
+	public void setAvioes(List<Aviao> avioes) {
+		this.avioes = avioes;
+	}
+
+	
 }

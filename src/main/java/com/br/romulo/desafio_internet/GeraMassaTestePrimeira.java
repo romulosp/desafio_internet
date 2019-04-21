@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.br.romulo.desafio_internet.domain.Aeroporto;
 import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
+import com.br.romulo.desafio_internet.domain.CiaAerea;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Primeira;
 import com.br.romulo.desafio_internet.domain.Rota;
@@ -18,6 +19,7 @@ import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
+import com.br.romulo.desafio_internet.repositories.CiaAereaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
 import com.br.romulo.desafio_internet.repositories.PrimeiraRepository;
 import com.br.romulo.desafio_internet.repositories.RotaRepository;
@@ -42,7 +44,13 @@ public class GeraMassaTestePrimeira {
 	@Autowired
 	private AviaoRepository aviaoRepository;
 	
+	@Autowired
+	private CiaAereaRepository ciaAereaRepository;
+	
 	public Primeira geraMassaTestePrimeira() {
+		
+		CiaAerea latam = new CiaAerea(null, "Latam");
+		
 		Calendar horarioPartidaPrimeira = Calendar.getInstance();
 		horarioPartidaPrimeira.set(Calendar.DAY_OF_YEAR, 2);
 		horarioPartidaPrimeira.set(Calendar.MONTH, 6);
@@ -73,6 +81,9 @@ public class GeraMassaTestePrimeira {
 				);
 		
 		Rota rotaVooPrimeira = new Rota(null, "ROTA Primeira", "DESCRICAO ROTA Primeira");
+		
+		rotaVooPrimeira.setCiaAerea(latam);
+		
 		Aeroporto aeroportoPrimeira1 = new Aeroporto(null, "aeroporto 1 Primeira ", "A1s");
 		Aeroporto aeroportoPrimeira2 = new Aeroporto(null, "aeroporto 2 Primeira", "ASQ");
 		 
@@ -93,6 +104,10 @@ public class GeraMassaTestePrimeira {
 		aviaoRepository.save(aviaoPrimeira);
 		
 		horarioVooPrimeira.setAviao(aviaoPrimeira);
+		
+		latam.setAvioes(Arrays.asList(aviaoPrimeira));
+		ciaAereaRepository.save(latam);
+		
 		
 		horarioRepository.save(horarioVooPrimeira);
 		

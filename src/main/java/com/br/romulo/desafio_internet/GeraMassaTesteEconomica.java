@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.br.romulo.desafio_internet.domain.Aeroporto;
 import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
+import com.br.romulo.desafio_internet.domain.CiaAerea;
 import com.br.romulo.desafio_internet.domain.Economica;
 import com.br.romulo.desafio_internet.domain.Horario;
 import com.br.romulo.desafio_internet.domain.Rota;
@@ -18,6 +19,7 @@ import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
+import com.br.romulo.desafio_internet.repositories.CiaAereaRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
 import com.br.romulo.desafio_internet.repositories.RotaRepository;
@@ -44,8 +46,15 @@ public class GeraMassaTesteEconomica {
 	@Autowired
 	private AviaoRepository aviaoRepository;
 	
+	@Autowired
+	private CiaAereaRepository ciaAereaRepository;
 	
 	public Economica geraMassaTesteEconomica() {
+		
+		
+		CiaAerea gol = new CiaAerea(null, "GOL");
+		
+		
 		Calendar horarioPartidaEconomica = Calendar.getInstance();
 		horarioPartidaEconomica.set(Calendar.DAY_OF_YEAR, 20);
 		horarioPartidaEconomica.set(Calendar.MONTH, 4);
@@ -73,6 +82,9 @@ public class GeraMassaTesteEconomica {
 		
 		
 		Rota rotaVooEconomica = new Rota(null, "ROTA ECONOMICA", "DESCRICAO ROTA ECONOMICA");
+		
+		rotaVooEconomica.setCiaAerea(gol);
+		
 		Aeroporto aeroportoEconomica1 = new Aeroporto(null, "aeroporto 1 Economica ", "A1s");
 		Aeroporto aeroportoEconomica2 = new Aeroporto(null, "aeroporto 2 Economica", "ASQ");
 		Aeroporto aeroportoEconomica3 = new Aeroporto(null, "aeroporto 3 Economica", "DSW");
@@ -94,9 +106,16 @@ public class GeraMassaTesteEconomica {
 		horarioVooEconomica.setRota(rotaVooEconomica);
 		
 		Aviao aviaoEconomico = new Aviao(null, "Avião economico", 10000.00, 10, null, null);
+		aviaoEconomico.setCiaAerea(gol);
 		
 		horarioVooEconomica.setAviao(aviaoEconomico);
+		
+		gol.setAvioes(Arrays.asList(aviaoEconomico));
+		ciaAereaRepository.save(gol);
+		
 		aviaoRepository.save(aviaoEconomico);
+		
+		
 		
 		horarioVooEconomica.setAviao(aviaoEconomico);
 		

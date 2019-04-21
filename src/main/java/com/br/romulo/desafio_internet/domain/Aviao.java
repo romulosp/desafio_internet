@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Aviao implements Serializable {
@@ -25,8 +26,9 @@ public class Aviao implements Serializable {
 	private Integer qtdEconomica;
 	private Integer qtdPrimeira;
 	private Integer qtdExecutiva;
- 
 	
+	@OneToOne
+	private CiaAerea ciaAerea;
 	
 	public Aviao() {}
 	
@@ -80,7 +82,15 @@ public class Aviao implements Serializable {
 	public void setQtdExecutiva(Integer qtdExecutiva) {
 		this.qtdExecutiva = qtdExecutiva;
 	}
+	
+	public CiaAerea getCiaAerea() {
+		return ciaAerea;
+	}
 
+	public void setCiaAerea(CiaAerea ciaAerea) {
+		this.ciaAerea = ciaAerea;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,5 +114,4 @@ public class Aviao implements Serializable {
 			return false;
 		return true;
 	}
-
 }
