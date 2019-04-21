@@ -119,6 +119,12 @@ public class GeraMassaTesteExecutiva {
 		
 		Aviao aviaoExecutiva = new Aviao(null, "Avião Executiva", 20000.00, null, null, 20);
 		
+		
+		Endereco enderecoAviao  = new Endereco(null, "SDS", "1", "dw", "RIO DE JANEIRO", "RIO DE JANEIRO", "RJ", "Brasil");
+		enderecoRepository.save(enderecoAviao);
+		aviaoExecutiva.setEndereco(enderecoAviao);
+		
+		
 		horarioVooExecutiva.setAviao(aviaoExecutiva);
 		aviaoRepository.save(aviaoExecutiva);
 		

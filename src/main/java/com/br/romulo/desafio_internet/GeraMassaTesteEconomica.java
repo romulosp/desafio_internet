@@ -123,6 +123,10 @@ public class GeraMassaTesteEconomica {
 		Aviao aviaoEconomico = new Aviao(null, "Avião economico", 10000.00, 10, null, null);
 		aviaoEconomico.setCiaAerea(gol);
 		
+		Endereco enderecoAviao  = new Endereco(null, "SAS", "2", "as", "SAO PAULO", "São PAULO", "SP", "Brasil");
+		enderecoRepository.save(enderecoAviao);
+		aviaoEconomico.setEndereco(enderecoAviao);
+		
 		horarioVooEconomica.setAviao(aviaoEconomico);
 		
 		gol.setAvioes(Arrays.asList(aviaoEconomico));

@@ -28,6 +28,9 @@ public class Aviao implements Serializable {
 	private Integer qtdExecutiva;
 	
 	@OneToOne
+	private Endereco endereco;
+	
+	@OneToOne
 	private CiaAerea ciaAerea;
 	
 	public Aviao() {}
@@ -90,7 +93,12 @@ public class Aviao implements Serializable {
 	public void setCiaAerea(CiaAerea ciaAerea) {
 		this.ciaAerea = ciaAerea;
 	}
-	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

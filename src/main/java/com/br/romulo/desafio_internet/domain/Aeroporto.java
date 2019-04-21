@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Aeroporto implements Serializable {
@@ -26,6 +27,9 @@ public class Aeroporto implements Serializable {
 	
 	private String nome;
 	private String codigo;
+	
+	@OneToOne
+	private Endereco endereco;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -79,7 +83,12 @@ public class Aeroporto implements Serializable {
 	public void setRotas(List<Rota> rotas) {
 		this.rotas = rotas;
 	}
-
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

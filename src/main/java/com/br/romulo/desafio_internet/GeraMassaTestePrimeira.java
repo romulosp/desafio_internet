@@ -115,6 +115,13 @@ public class GeraMassaTestePrimeira {
 		
 		Aviao aviaoPrimeira = new Aviao(null, "Avião Primeira", 50000.00, null, 60, null);
 		
+		
+		Endereco enderecoAviao  = new Endereco(null, "GDX", "3", "bv", "Bahia", "Salvador", "BH", "Brasil");
+		enderecoRepository.save(enderecoAviao);
+		aviaoPrimeira.setEndereco(enderecoAviao);
+		
+		
+		
 		horarioVooPrimeira.setAviao(aviaoPrimeira);
 		aviaoRepository.save(aviaoPrimeira);
 		
