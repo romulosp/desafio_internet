@@ -11,7 +11,10 @@ import com.br.romulo.desafio_internet.domain.Aeroporto;
 import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.CiaAerea;
+import com.br.romulo.desafio_internet.domain.Endereco;
 import com.br.romulo.desafio_internet.domain.Horario;
+import com.br.romulo.desafio_internet.domain.Passageiro;
+import com.br.romulo.desafio_internet.domain.Pessoa;
 import com.br.romulo.desafio_internet.domain.Primeira;
 import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
@@ -19,8 +22,11 @@ import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
+import com.br.romulo.desafio_internet.repositories.BilheteRepository;
 import com.br.romulo.desafio_internet.repositories.CiaAereaRepository;
+import com.br.romulo.desafio_internet.repositories.EnderecoRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
+import com.br.romulo.desafio_internet.repositories.PessoaRepository;
 import com.br.romulo.desafio_internet.repositories.PrimeiraRepository;
 import com.br.romulo.desafio_internet.repositories.RotaRepository;
 
@@ -47,7 +53,16 @@ public class GeraMassaTestePrimeira {
 	@Autowired
 	private CiaAereaRepository ciaAereaRepository;
 	
-	public Primeira geraMassaTestePrimeira() {
+	@Autowired
+	private BilheteRepository bilheteRepository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	public void geraMassaTestePrimeira() {
 		
 		CiaAerea latam = new CiaAerea(null, "Latam");
 		
@@ -124,6 +139,23 @@ public class GeraMassaTestePrimeira {
 		bagemPrimeira1.setBilhetes(Arrays.asList(primeira));
 		bagagemRepository.saveAll(Arrays.asList(bagemPrimeira1,bagemPrimeira2));
 		primeiraRepository.save(primeira);
-		return primeira;
+		
+		
+		Calendar dataNascimento = Calendar.getInstance();
+		dataNascimento.set(Calendar.YEAR, 1954);
+		dataNascimento.set(Calendar.MONTH, 5);
+		dataNascimento.set(Calendar.DAY_OF_MONTH, 10);
+		
+		Pessoa passageiro1 = new Passageiro(null, "Gildete", "gildete@gmail.com", "(61) 2231-3212", "Gildete", "3213", dataNascimento, "02040120301", "321312324323232");
+		
+		Endereco endereco  = new Endereco(null, "QNO", "20", "colegio 62", "ceilandia norte", "ceilândia", "DF", "Brasil");
+		enderecoRepository.save(endereco);
+		passageiro1.setEndereco(endereco);
+		
+		
+		pessoaRepository.saveAll(Arrays.asList(passageiro1));
+		primeira.setPassageiro((Passageiro) passageiro1);
+		
+		bilheteRepository.save(primeira);
 	}
 }

@@ -12,16 +12,22 @@ import com.br.romulo.desafio_internet.domain.Aviao;
 import com.br.romulo.desafio_internet.domain.Bagagem;
 import com.br.romulo.desafio_internet.domain.CiaAerea;
 import com.br.romulo.desafio_internet.domain.Economica;
+import com.br.romulo.desafio_internet.domain.Endereco;
 import com.br.romulo.desafio_internet.domain.Horario;
+import com.br.romulo.desafio_internet.domain.Passageiro;
+import com.br.romulo.desafio_internet.domain.Pessoa;
 import com.br.romulo.desafio_internet.domain.Rota;
 import com.br.romulo.desafio_internet.domain.SituacaoBilheteEnum;
 import com.br.romulo.desafio_internet.domain.TipoBagagemEnum;
 import com.br.romulo.desafio_internet.repositories.AeroportoRepository;
 import com.br.romulo.desafio_internet.repositories.AviaoRepository;
 import com.br.romulo.desafio_internet.repositories.BagagemRepository;
+import com.br.romulo.desafio_internet.repositories.BilheteRepository;
 import com.br.romulo.desafio_internet.repositories.CiaAereaRepository;
 import com.br.romulo.desafio_internet.repositories.EconomicaRepository;
+import com.br.romulo.desafio_internet.repositories.EnderecoRepository;
 import com.br.romulo.desafio_internet.repositories.HorarioRepository;
+import com.br.romulo.desafio_internet.repositories.PessoaRepository;
 import com.br.romulo.desafio_internet.repositories.RotaRepository;
 
 
@@ -49,7 +55,16 @@ public class GeraMassaTesteEconomica {
 	@Autowired
 	private CiaAereaRepository ciaAereaRepository;
 	
-	public Economica geraMassaTesteEconomica() {
+	@Autowired
+	private BilheteRepository bilheteRepository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	public void geraMassaTesteEconomica() {
 		
 		
 		CiaAerea gol = new CiaAerea(null, "GOL");
@@ -134,6 +149,22 @@ public class GeraMassaTesteEconomica {
 		bagagemRepository.save(bagemEconomica1);
 		economicaRepository.save(economica);
 		economica.setBagagens(Arrays.asList(bagemEconomica1));
-		return economica;
+		
+		Calendar dataNascimento = Calendar.getInstance();
+		dataNascimento.set(Calendar.YEAR, 1991);
+		dataNascimento.set(Calendar.MONTH, 11);
+		dataNascimento.set(Calendar.DAY_OF_MONTH, 30);
+		
+		Pessoa passageiro1 = new Passageiro(null, "Romulo", "romulo@gmail.com", "(61) 3321-2121", "ROMULO", "123", dataNascimento, "11121212111", "12312120398109283");
+		
+		Endereco endereco  = new Endereco(null, "QNO", "7", "rua posto", "ceilandia norte", "ceilândia", "DF", "Brasil");
+		enderecoRepository.save(endereco);
+		passageiro1.setEndereco(endereco);
+		
+		pessoaRepository.saveAll(Arrays.asList(passageiro1));
+		economica.setPassageiro((Passageiro) passageiro1);
+		
+		bilheteRepository.save(economica);
+		
 	}
 }

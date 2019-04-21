@@ -43,6 +43,9 @@ public abstract class Bilhete implements Serializable {
 	@ManyToMany(mappedBy="bilhetes")
 	private List<Bagagem> bagagens;
 	
+	@OneToOne
+	private Passageiro passageiro;
+	
 	
 	public Bilhete() {
 	}
@@ -120,6 +123,14 @@ public abstract class Bilhete implements Serializable {
 	public void setBagagens(List<Bagagem> bagagens) {
 		this.bagagens = bagagens;
 	}
+	
+	public Passageiro getPassageiro() {
+		return passageiro;
+	}
+
+	public void setPassageiro(Passageiro passageiro) {
+		this.passageiro = passageiro;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -136,7 +147,4 @@ public abstract class Bilhete implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
 }
