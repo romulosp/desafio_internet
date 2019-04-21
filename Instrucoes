@@ -1,0 +1,11 @@
+Instruções 
+
+Para ver as tabelas geradas entrar 
+
+http://localhost:8080/h2/login.jsp?jsessionid=435cb544006acf767fc2e31a0c6813ad
+
+
+JDBC URL 
+	jdbc:h2:mem:testdb
+user 
+	sa
