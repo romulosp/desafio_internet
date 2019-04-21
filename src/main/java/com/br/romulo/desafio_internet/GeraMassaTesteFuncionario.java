@@ -48,6 +48,5 @@ public class GeraMassaTesteFuncionario implements CommandLineRunner{
 		Funcionario funcionario = new Funcionario(null, "werton", "weton@gas.com", "6177118181", "werton", "423", dataNascimento, "s2jasj#a", "123123221222");
 		funcionario.setPapel(piloto);
 		funcionarioRepository.save(funcionario);
-		
 	}
 }
